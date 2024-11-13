@@ -1,0 +1,47 @@
+html, body {
+    background-color:rgb(219, 219, 219);
+    margin: 0;
+    padding: 0;
+    font-family: "Hind Siliguri", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: 100%;
+}
+
+.content {
+    flex: 1;
+    display: flex;               
+    justify-content: center;       
+    align-items: center;         
+    background-color: #f0f0f0;
+}
+
+.menu {
+    background-color:rgb(255, 255, 255);
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+@media (max-width: 1050px) and (min-height: 500px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .menu { 
+        width: 100%;
+    }
+}
+
+@media (min-width: 800px) and (max-height: 500px) {
+    .container {
+        flex-direction: row;
+    }
+}
