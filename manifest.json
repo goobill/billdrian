@@ -1,0 +1,28 @@
+{
+    "name": "BILLDRIAN",
+    "short_name": "BILLDRIAN",
+    "categories": ["productivity", "utilities", "entertainment"],
+    "description": "Digital platform inspired by the geometric brilliance of Piet Mondrian, empowering creators to design bold, minimalist artworks with ease. Combining tradition with technology, it offers intuitive tools for customizing grids, manipulating color palettes, and experimenting with abstraction, making modernist design accessible to everyone. Celebrating the harmony of line, form, and hue, the platform fosters a vibrant community of creators and honors Mondrian’s legacy while inspiring new interpretations. Whether you're a novice or an expert, this is your space to transform blank canvases into structured beauty, reimagining art one grid at a time.",
+    "icons": [
+      {
+        "src": "favicon/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "favicon/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "screenshots": [
+        {
+        "src": "assets/billdrian.png",
+        "sizes": "1529x881",
+        "type": "image/png"
+        }
+    ]
+  }
