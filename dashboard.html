@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BILLDRIAN</title>
+    <title>DASHBOARD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <script type="text/javascript">
-      startData = {"p":100,"d":"h","l":[{"p":17,"d":"v","l":[{"p":34,"c":"#FFFFFF","s":0},{"p":43,"c":"#FFFFFF","s":0},{"p":23,"c":"#3755A1","s":0}]},{"p":83,"d":"v","l":[{"p":80,"c":"#EC4028","s":0},{"p":20,"d":"h","l":[{"p":79,"c":"#FFFFFF","s":0},{"p":21,"d":"v","l":[{"p":42,"c":"#FFFFFF","s":0},{"p":58,"c":"#F7C940","s":0}]}]}]}]}
+      startData = {"p":100,"d":"h","l":[{"p":50,"c":"","s":0},{"p":50,"c":"","s":0}]}
     </script>
     <div class="container">
       <div class="content">
@@ -28,26 +28,24 @@
       </div>
       <div class="menu">
           <section class="menu-heading">
-            <h1 id="menu-title">BILLDRIAN</h1>
+            <h1 id="menu-title">DASHBOARD</h1>
           </section>
           <section class="menu-section">
             <div class="menu-row">
               <div id="box-vertical" class="box-selector"></div>
               <div id="box-horizontal" class="box-selector"></div>
-              <div id="box-resize" class="box-selector box-selector--selected"></div>
+              <div id="box-resize" class="box-selector box-selected"></div>
               <div id="box-delete" class="box-selector"></div>
             </div>
           </section>
           <section class="menu-section">
             <div class="menu-row">
-              <div id="box-yellow" class="box-selector"></div>
-              <div id="box-red" class="box-selector"></div>
-              <div id="box-blue" class="box-selector"></div>
-              <div id="box-black" class="box-selector"></div>
+              <div >Set URL</div>
+              <textarea type="text" id="box-edit" class="box-input" name="box-input"></textarea>
             </div>
           </section>
           <section class="menu-footer">
-            <button id="action-paint" type="button" divider="true">P A I N T</button>
+            <button id="action-paint" type="button" divider="false">G E N E R A T E</button>
           </section>
         </div>
     </div>

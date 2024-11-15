@@ -45,6 +45,6 @@
 /* .blob:hover {
     background-color: rgb(181, 213, 228);
 } */
-.blob[selected='true'] {
+.blob[selected="true"] {
     background-color:rgb(181, 213, 228);
 }

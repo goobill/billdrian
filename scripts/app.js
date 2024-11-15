@@ -4,72 +4,6 @@ UTILS
 
 */  
 
-const startData = {
-    "p": 100,
-    "d": "h",
-    "l": [
-        {
-        "p": 17,
-        "d": "v",
-        "l": [
-            {
-            "p": 34,
-            "c": "#FFFFFF",
-            "s": 0
-            },
-            {
-            "p": 43,
-            "c": "#FFFFFF",
-            "s": 0
-            },
-            {
-            "p": 23,
-            "c": "#3755A1",
-            "s": 0
-            }
-        ]
-        },
-        {
-            "p": 83,
-            "d": "v",
-            "l": [
-                    {
-                    "p": 80,
-                    "c": "#EC4028",
-                    "s": 0
-                    },
-                    {
-                    "p": 20,
-                    "d": "h",
-                    "l": [
-                        {
-                            "p": 79,
-                            "c": "#FFFFFF",
-                            "s": 0
-                        },
-                        {
-                            "p": 21,
-                            "d": "v",
-                            "l": [
-                                {
-                                "p": 42,
-                                "c": "#FFFFFF",
-                                "s": 0
-                                },
-                                {
-                                "p": 58,
-                                "c": "#F7C940",
-                                "s": 0
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
-
 const getLevel = function (levelDOM, p) {
     const levelContainers = Array.from(levelDOM.children)
         .filter(elem => elem.getAttribute('class') != "resizer")
@@ -109,8 +43,6 @@ const getLevel = function (levelDOM, p) {
             row = {
                 "p": percent,
             }
-            console.log(id)
-            console.log(blob)
             if (blob) {
                 row["c"] = blob["c"]
                 row["s"] = blob["s"] ? 1 : 0
@@ -215,10 +147,11 @@ const resizable = function (resizerDOM) {
 };
 
 const paintable = function (paintDOM) {
+    const divider = paintDOM.getAttribute("divider") === "true"
     const pointerDownHandler = function (e) {
         e.preventDefault();
         const painting = btoa(JSON.stringify(getData()))
-        const url = `paint.html?artwork=${painting}`
+        const url = `paint.html?${divider ? "divider&" : ""}artwork=${painting}`
         window.open(url).focus();
     };
 
@@ -240,7 +173,7 @@ const loadResizables = function () {
 
 const renderApp = function () {
     const appDOM = document.getElementById("app");
-    renderLevel(appDOM, startData)
+    renderLevel(appDOM, startData, true)
     loadResizables()
 
     const paintDOM = document.getElementById("action-paint");

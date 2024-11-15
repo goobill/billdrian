@@ -2,11 +2,26 @@ const boxable = function (blobDOM) {
     const pointerDownHandler = function (e) {
         const id = blobDOM.id
 
-        document.querySelectorAll('.box-selector--selected').forEach(function (ele) {
-            ele.setAttribute("class", "box-selector")
+        document.querySelectorAll('.box-selected').forEach(function (elem) {
+            if (elem.getAttribute("class").includes("box-input")) {
+                elem.setAttribute("class", "box-input")
+            } else {
+                elem.setAttribute("class", "box-selector")
+            }
         });
+        // remove selected blob if not editing
+        // and reset editor to no value
+        if (!blobDOM.getAttribute("class").includes("box-input")) {
+            document.querySelectorAll('.blob[selected="true"]').forEach(function (elem) {
+                elem.setAttribute("selected", "false")
+            });
+            const inputDOM = document.getElementById("box-edit")
+            if (inputDOM) {
+                inputDOM.value = ""
+            }
+        }
 
-        blobDOM.setAttribute("class", "box-selector box-selector--selected")
+        blobDOM.setAttribute("class", blobDOM.getAttribute("class") + " box-selected")
 
         switch (id) {
             case "box-vertical":
@@ -48,6 +63,9 @@ const boxable = function (blobDOM) {
 
 const loadMenu = function () {
     document.querySelectorAll('.box-selector').forEach(function (elem) {
+        boxable(elem);
+    });
+    document.querySelectorAll('.box-input').forEach(function (elem) {
         boxable(elem);
     });
 }

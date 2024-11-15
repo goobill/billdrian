@@ -4,11 +4,12 @@ const renderCanvas = function () {
 
     const urlParams = new URLSearchParams(queryString);
 
-    const product = urlParams.get('artwork')
+    const artwork = urlParams.get('artwork')
+    const hasDivider = urlParams.has('divider')
 
-    const data = JSON.parse(atob(product))
+    const data = JSON.parse(atob(artwork))
     
-    renderLevel(canvasDOM, data)
+    renderLevel(canvasDOM, data, hasDivider)
 };
 
 document.addEventListener('DOMContentLoaded', renderCanvas);

@@ -6,6 +6,7 @@ STATES
 
 let selectedId = undefined; 
 let selectedAction = 2; 
+let startData = {}
 const blobs = new Map();
 
 /*
@@ -28,11 +29,16 @@ const createBlob = function (content, scrolling, percent) {
     return id
 }
 
+const removeBlob = function (id) {
+    blobs.delete(id);
+    return id
+}
+
 /*
 ACTIONS
 ====
 
-*/  
+*/
 
 const deleteBlob = function (id) {
     const blobDOM = document.getElementById(id)
@@ -60,10 +66,12 @@ const deleteBlob = function (id) {
         blobDOM.remove()
         containerDOM.remove()
         prevSibling.remove()
+        removeBlob(id)
     } else if (nextSibling && nextSibling.getAttribute("class") === "resizer") {
         blobDOM.remove()
         containerDOM.remove()
         nextSibling.remove()
+        removeBlob(id)
     }
     
     const levelContainers = Array.from(levelDOM.children)
@@ -103,7 +111,7 @@ const appendBlob = function (id) {
         .reduce((sum, num) => sum + num);
 
     const children = undefined
-    const content = "#FFFFFF"
+    const content = ""
     const scrolling = false
     let newContainerPercent = 100 / (levelContainers.length + 1);
 
@@ -146,8 +154,8 @@ const splitBlob = function (id) {
     const containerDirection = containerDOM.getAttribute('class')
     const direction = containerDirection === "container_horizontal" ? "v" : "h"
     
-    const blob1 = createBlob("#FFFFFF", false, 50)
-    const blob2 = createBlob("#FFFFFF", false, 50)
+    const blob1 = createBlob("", false, 50)
+    const blob2 = createBlob("", false, 50)
 
     const data = {
         "p": 100,
@@ -158,7 +166,7 @@ const splitBlob = function (id) {
         ]
     }
     
-    const level = renderLevel(containerDOM, data)
+    const level = renderLevel(containerDOM, data, true)
 
     // first container, idx 1 as blob is idx 0 still
     const cont = level.children[1]
@@ -189,11 +197,33 @@ const editBlob = function (id) {
         return
     }
 
+    document.querySelectorAll('.blob[selected="true"]').forEach(function (elem) {
+        elem.setAttribute("selected", "false")
+    });
+
+    blobDOM.setAttribute("selected", "true")
+
     if (selectedId === id) {
         selectedId = undefined
     } else {
         selectedId = id
     }
+
+    const textChangeHandler = function (e) {
+        const val = e.target.value
+        const blob = blobs.get(selectedId)
+        if (blob) {
+            blob["c"] = val
+        }
+    }
+
+    const blob = blobs.get(id)
+    const currentValue = blob["c"] || ""
+    const inputDOM = document.getElementById("box-edit")
+
+    inputDOM.value = currentValue
+    inputDOM.removeEventListener("input", textChangeHandler);
+    inputDOM.addEventListener("input", textChangeHandler);
 }
 
 /*
@@ -284,18 +314,16 @@ const renderContainer = function (direction, percent, children, content, scrolli
             throw new Error(`${direction} is not a valid direction`);
     }
 
-    if (!children && !!content) {
+    if (!children) {
         let blobDOM;
         if (content.startsWith("http")) {
             blobDOM = document.createElement('iframe');
             blobDOM.setAttribute("src", content);
             blobDOM.setAttribute("scrolling", scrolling ? "yes" : "no");
-        } else {
+        } else { 
             blobDOM = document.createElement('div');
             if (content.startsWith("#")) {
                 blobDOM.style.backgroundColor = content
-            } else {
-                blobDOM.style.backgroundColor = "#FFFFFF"
             }
         }
         blobDOM.id = id
@@ -309,7 +337,7 @@ const renderContainer = function (direction, percent, children, content, scrolli
     return {containerDOM, dividerDOM}
 }
 
-const renderLevel = function (parentDOM, levelData) {
+const renderLevel = function (parentDOM, levelData, hasDivider) {
     const level = levelData["l"]
     const direction = levelData["d"] === "h" ? "horizontal" : "vertical"
     const total = level.length
@@ -330,12 +358,12 @@ const renderLevel = function (parentDOM, levelData) {
         )
         
         parentDOM.appendChild(containerDOM);
-        if (!isLast) {
+        if (!isLast && hasDivider) {
             parentDOM.appendChild(dividerDOM);
         }
 
         if (children) {
-            renderLevel(containerDOM, containerData)
+            renderLevel(containerDOM, containerData, hasDivider)
         }
     })
 
