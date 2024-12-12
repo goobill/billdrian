@@ -37,7 +37,8 @@ jobs:
         rm -rf pages
         rm -rf .git
         rm -rf .github
-        rm -rf favicon_*
+        rm -rf favicon_artist
+        rm -rf favicon_dash
         rm -f README.md
         rm -f .gitignore
         rm -f package.json
