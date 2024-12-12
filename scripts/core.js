@@ -209,7 +209,7 @@ const editBlob = function (id) {
         selectedId = id
     }
 
-    const textChangeHandler = function (e) {
+    const inputUrlChangeHandler = function (e) {
         const val = e.target.value
         const blob = blobs.get(selectedId)
         if (blob) {
@@ -217,13 +217,27 @@ const editBlob = function (id) {
         }
     }
 
-    const blob = blobs.get(id)
-    const currentValue = blob["c"] || ""
-    const inputDOM = document.getElementById("box-edit")
+    const inputReloadChangeHandler = function (e) {
+        const val = e.target.value
+        const blob = blobs.get(selectedId)
+        if (blob) {
+            blob["r"] = val
+        }
+    }
 
-    inputDOM.value = currentValue
-    inputDOM.removeEventListener("input", textChangeHandler);
-    inputDOM.addEventListener("input", textChangeHandler);
+    const blob = blobs.get(id)
+    const currentUrl = blob["c"] || ""
+    const currentReload = blob["r"] || ""
+    const textUrlDOM = document.getElementById("box-input-url")
+    const textReloadDOM = document.getElementById("box-input-reload")
+
+    textUrlDOM.value = currentUrl
+    textUrlDOM.removeEventListener("input", inputUrlChangeHandler);
+    textUrlDOM.addEventListener("input", inputUrlChangeHandler);
+
+    textReloadDOM.value = currentReload
+    textReloadDOM.removeEventListener("input", inputReloadChangeHandler);
+    textReloadDOM.addEventListener("input", inputReloadChangeHandler);
 }
 
 /*
@@ -291,7 +305,7 @@ RENDER
 
 */
 
-const renderContainer = function (direction, percent, children, content, scrolling) {
+const renderContainer = function (direction, percent, children, content, scrolling, reloadInterval) {
     const id = createBlob(content, scrolling, percent)
     const containerDOM = document.createElement('div');
     const dividerDOM = document.createElement('div');
@@ -320,6 +334,15 @@ const renderContainer = function (direction, percent, children, content, scrolli
             blobDOM = document.createElement('iframe');
             blobDOM.setAttribute("src", content);
             blobDOM.setAttribute("scrolling", scrolling ? "yes" : "no");
+            
+            if (reloadInterval) {
+                function reload(elemId, content) {
+                    console.log("reload")
+                    const d = document.getElementById(elemId)
+                    d.src = content;
+                }
+                window.setInterval(reload, reloadInterval * 1000, id, content);
+            }
         } else { 
             blobDOM = document.createElement('div');
             if (content.startsWith("#")) {
@@ -348,13 +371,16 @@ const renderLevel = function (parentDOM, levelData, hasDivider) {
         const content = containerData["c"]
         const scrolling = containerData["s"]
         const percent = containerData["p"]
+        const r = parseInt(containerData["r"])
+        const reloadInterval = r && r > 0 ? r : null
 
         const {containerDOM, dividerDOM} = renderContainer(
             direction,
             percent, 
             children, 
             content, 
-            scrolling
+            scrolling,
+            reloadInterval
         )
         
         parentDOM.appendChild(containerDOM);

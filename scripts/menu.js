@@ -14,11 +14,7 @@ const boxable = function (blobDOM) {
         if (!blobDOM.getAttribute("class").includes("box-input")) {
             document.querySelectorAll('.blob[selected="true"]').forEach(function (elem) {
                 elem.setAttribute("selected", "false")
-            });
-            const inputDOM = document.getElementById("box-edit")
-            if (inputDOM) {
-                inputDOM.value = ""
-            }
+            }); 
         }
 
         blobDOM.setAttribute("class", blobDOM.getAttribute("class") + " box-selected")
@@ -65,9 +61,9 @@ const loadMenu = function () {
     document.querySelectorAll('.box-selector').forEach(function (elem) {
         boxable(elem);
     });
-    document.querySelectorAll('.box-input').forEach(function (elem) {
-        boxable(elem);
-    });
+    // document.querySelectorAll('.box-input').forEach(function (elem) {
+    //     boxable(elem);
+    // });
 }
 
 document.addEventListener('DOMContentLoaded', loadMenu);

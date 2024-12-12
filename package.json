@@ -1,0 +1,27 @@
+{
+  "name": "dash",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goobill/billdrian.git"
+  },
+  "author": "bill",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goobill/billdrian/issues"
+  },
+  "scripts": {
+    "minify": "node scripts/minify.js"
+  },
+  "homepage": "https://github.com/goobill/billdrian#readme",
+  "description": "Node packages for git workflow",
+  "type": "module",
+  "dependencies": {
+    "rehype-parse": "^9.0.1",
+    "rehype-preset-minify": "^7.0.1",
+    "rehype-stringify": "^10.0.1",
+    "remark-parse": "^11.0.0",
+    "to-vfile": "^8.0.0",
+    "unified": "^11.0.5"
+  }
+}

@@ -46,6 +46,7 @@ const getLevel = function (levelDOM, p) {
             if (blob) {
                 row["c"] = blob["c"]
                 row["s"] = blob["s"] ? 1 : 0
+                row["r"] = blob["r"]
             }
         } else {
             row = Object.assign({"p": percent}, getLevel(container, percent))

@@ -3,10 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD</title>
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="favicon/favicon.ico" />
-    <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png">
+    <title>DASH</title>
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Dash" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,8 +25,9 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <script type="text/javascript">
-      startData = {"p":100,"d":"h","l":[{"p":50,"c":"","s":0},{"p":50,"c":"","s":0}]}
-    </script>
+      startData = {"p":100,"d":"h","l":[{"p":50,"c":"","s":0},{"p":50,"c":"","s":0}]};
+      selectedAction = 4;
+    </script> 
     <div class="container">
       <div class="content">
         <div id="app">
@@ -31,20 +35,22 @@
       </div>
       <div class="menu">
           <section class="menu-heading">
-            <h1 id="menu-title">DASHBOARD</h1>
+            <h1 id="menu-title">DASHBOARD GENERATOR</h1>
+            <a href="https://goobill.com/dashboard-generator" id="icon-info"></a>
           </section>
           <section class="menu-section">
             <div class="menu-row">
               <div id="box-vertical" class="box-selector"></div>
               <div id="box-horizontal" class="box-selector"></div>
-              <div id="box-resize" class="box-selector box-selected"></div>
               <div id="box-delete" class="box-selector"></div>
+              <div id="box-edit" class="box-selector box-selected"></div>
             </div>
           </section>
           <section class="menu-section">
             <div class="menu-row">
-              <div >Set URL</div>
-              <textarea type="text" id="box-edit" class="box-input" name="box-input"></textarea>
+              <div>Click on a square to set the URL</div>
+              <textarea type="text" id="box-input-url" class="box-input" name="box-input" placeholder="https://your.url"></textarea>
+              <input type="number" id="box-input-reload" class="box-input" name="box-input" placeholder="Reload rate, in seconds (not required)"></input>
             </div>
           </section>
           <section class="menu-footer">

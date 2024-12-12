@@ -1,0 +1,52 @@
+name: Deployment Dash
+
+on:
+    push:
+        branches: [ main ]
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Move HTML pages
+      run: |
+        cp -p pages/*.html .
+
+    - name: Move Favicons
+      run: |
+        mkdir favicon
+        cp -p favicon_dash/* favicon
+
+    - name: Node setup
+      run: |
+        npm install --quiet
+
+    - name: Minify HTML/JS/CSS files
+      run: |
+        npm run minify
+
+    - name: Cleanup extra files/folders
+      run: |
+        rm -rf node_modules
+        rm -rf pages
+        rm -rf .git
+        rm -rf .github
+        rm -rf favicon_*
+        rm -f README.md
+        rm -f .gitignore
+        rm -f package.json
+        rm -f package-lock.json
+        rm -f artist.html
+
+    - name: Upload to Cloudflare pages
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        command: pages deploy . --project-name=dash --branch=main
