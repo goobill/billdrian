@@ -1,6 +1,6 @@
 {
   "name": "Dashboard Generator",
-  "short_name": "Dash",
+  "short_name": "dash",
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",
