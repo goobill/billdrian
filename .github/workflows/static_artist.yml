@@ -17,6 +17,7 @@ jobs:
     - name: Move HTML pages
       run: |
         cp -p pages/*.html .
+        cp -p artist.html index.html
 
     - name: Move Favicons
       run: |
@@ -44,6 +45,7 @@ jobs:
         rm -f package.json
         rm -f package-lock.json
         rm -f dashboard.html
+        rm -f artist.html
 
     - name: Upload to Cloudflare pages
       uses: cloudflare/wrangler-action@v3
