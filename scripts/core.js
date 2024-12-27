@@ -330,7 +330,10 @@ const renderContainer = function (direction, percent, children, content, scrolli
 
     if (!children) {
         let blobDOM;
-        if (content.startsWith("http")) {
+        if (content.startsWith("#")) {
+            blobDOM = document.createElement('div');
+            blobDOM.style.backgroundColor = content
+        } else {
             blobDOM = document.createElement('iframe');
             blobDOM.setAttribute("src", content);
             blobDOM.setAttribute("scrolling", scrolling ? "yes" : "no");
@@ -342,11 +345,6 @@ const renderContainer = function (direction, percent, children, content, scrolli
                     d.src = content;
                 }
                 window.setInterval(reload, reloadInterval * 1000, id, content);
-            }
-        } else { 
-            blobDOM = document.createElement('div');
-            if (content.startsWith("#")) {
-                blobDOM.style.backgroundColor = content
             }
         }
         blobDOM.id = id
