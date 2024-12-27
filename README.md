@@ -38,7 +38,7 @@ To view your JSON data, open the developer console (press F7 or inspect element 
 
     JSON.stringify(getData())
 
-The code is executed at [app.js](scripts/app.js#L154). You can see the JSON is encoded to Base64.
+The code is executed at [app.js](scripts/app.js#L154). You can see the JSON is encoded to Base64. The encoded data is then parsed to the paint page, where it is rendered. I went with the data in the URL to allow people to copy and paste their pages and send it anywhere.
 
 <img src="assets/design.jpg" width="300" alt="cloudflare_pricing">
 
