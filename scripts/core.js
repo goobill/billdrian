@@ -334,17 +334,21 @@ const renderContainer = function (direction, percent, children, content, scrolli
             blobDOM = document.createElement('div');
             blobDOM.style.backgroundColor = content
         } else {
-            blobDOM = document.createElement('iframe');
-            blobDOM.setAttribute("src", content);
-            blobDOM.setAttribute("scrolling", scrolling ? "yes" : "no");
-            
-            if (reloadInterval) {
-                function reload(elemId, content) {
-                    console.log("reload")
-                    const d = document.getElementById(elemId)
-                    d.src = content;
+            if (!!content) {
+                blobDOM = document.createElement('iframe');
+                blobDOM.setAttribute("src", content);
+                blobDOM.setAttribute("scrolling", scrolling ? "yes" : "no");
+                
+                if (reloadInterval) {
+                    function reload(elemId, content) {
+                        console.log("reload")
+                        const d = document.getElementById(elemId)
+                        d.src = content;
+                    }
+                    window.setInterval(reload, reloadInterval * 1000, id, content);
                 }
-                window.setInterval(reload, reloadInterval * 1000, id, content);
+            } else {
+                blobDOM = document.createElement('div');
             }
         }
         blobDOM.id = id
